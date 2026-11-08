@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="个人影像作品集">
+  <title>影像作品集</title>
+  <link rel="stylesheet" href="fonts/noto-sans-sc/index.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="content.js" defer></script>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至作品内容</a>
+  <div class="site-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a class="site-name" id="site-name" href="#works">Your Name 你的姓名</a>
+        <button id="menu-toggle" aria-expanded="false" aria-controls="navigation">目录 <span aria-hidden="true">＋</span></button>
+      </div>
+      <nav id="navigation" aria-label="作品与个人信息">
+        <div id="work-links" class="work-links"></div>
+        <div class="page-links">
+          <a href="#about">About</a>
+          <a href="#cv">CV</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </aside>
+    <main id="main" tabindex="-1">
+      <section id="works-view" aria-label="作品列表">
+        <div class="work-grid" id="work-grid"></div>
+      </section>
+      <article id="project-view" hidden>
+        <header class="project-heading">
+          <h1 id="project-title"></h1>
+          <p class="muted" id="project-meta"></p>
+        </header>
+        <div class="video-frame">
+          <div id="video-placeholder"><span>视频待添加</span></div>
+          <video id="player" controls playsinline preload="none" hidden></video>
+        </div>
+        <p id="video-message" class="muted" role="status" hidden></p>
+        <details id="local-tools" class="local-tools" hidden>
+          <summary>本机试播与封面预览</summary>
+          <p class="muted">选择电脑里的文件，仅在本机预览。刷新页面后需重新选择。</p>
+          <div class="file-inputs">
+            <label>视频文件 <input id="local-video" type="file" accept="video/*"></label>
+            <label>封面图片 <input id="local-cover" type="file" accept="image/*"></label>
+          </div>
+          <p id="local-message" class="muted" role="status"></p>
+        </details>
+        <div class="project-copy">
+          <p id="project-description" class="preserve-lines"></p>
+          <dl class="project-facts">
+            <div><dt>My role / 我的职责</dt><dd id="project-role"></dd></div>
+            <div><dt>Medium / 作品类型</dt><dd id="project-medium"></dd></div>
+          </dl>
+        </div>
+        <div id="project-gallery" class="project-gallery"></div>
+        <nav class="project-pagination" aria-label="切换作品">
+          <a id="previous-work"></a>
+          <a id="next-work"></a>
+        </nav>
+      </article>
+      <section id="about-view" class="text-page" hidden>
+        <h1>About</h1>
+        <p id="about-copy" class="preserve-lines"></p>
+      </section>
+      <section id="cv-view" class="text-page" hidden>
+        <h1>CV</h1>
+        <a id="cv-download" class="text-link" download hidden>下载简历 PDF ↗</a>
+        <div id="cv-sections"></div>
+      </section>
+      <section id="contact-view" class="text-page" hidden>
+        <h1>Contact</h1>
+        <p id="contact-intro"></p>
+        <dl id="contact-list" class="contact-list"></dl>
+      </section>
+    </main>
+  </div>
+  <template id="card-template">
+    <article class="work-card">
+      <a class="card-link">
+        <div class="cover">
+          <span class="cover-empty">封面待添加</span>
+          <span class="cover-number" aria-hidden="true"></span>
+          <img alt="" loading="lazy" decoding="async" hidden>
+        </div>
+        <h2></h2>
+        <p class="card-year"></p>
+      </a>
+    </article>
+  </template>
+</body>
+</html>
