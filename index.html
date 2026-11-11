@@ -4,26 +4,27 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="个人影像作品集">
-  <title>影像作品集</title>
+  <title>余珮格 Peige Yu · 影像作品集</title>
   <link rel="stylesheet" href="fonts/noto-sans-sc/index.css">
-  <link rel="stylesheet" href="styles.css">
-  <script src="content.js" defer></script>
-  <script src="main.js" defer></script>
+  <link rel="preload" as="image" href="images/arrow-cursor-12.svg" media="(hover: hover) and (pointer: fine)">
+  <link rel="preload" as="image" href="images/white-hand-cursor.svg" media="(hover: hover) and (pointer: fine)">
+  <link rel="stylesheet" href="styles.css?v=31f7704b58">
+  <script src="content.js?v=5776341034" defer></script>
+  <script src="main.js?v=5c74105591" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">跳至作品内容</a>
   <div class="site-layout">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <a class="site-name" id="site-name" href="#works">Your Name 你的姓名</a>
+        <a class="back-link" id="back-link" href="#works" aria-label="返回首页" title="返回首页" hidden>←</a>
         <button id="menu-toggle" aria-expanded="false" aria-controls="navigation">目录 <span aria-hidden="true">＋</span></button>
       </div>
       <nav id="navigation" aria-label="作品与个人信息">
         <div id="work-links" class="work-links"></div>
         <div class="page-links">
-          <a href="#about">About</a>
-          <a href="#cv">CV</a>
-          <a href="#contact">Contact</a>
+          <a href="#about">关于 <span lang="en">About</span></a>
+          <a href="#contact">联系 <span lang="en">Contact</span></a>
         </div>
       </nav>
     </aside>
@@ -31,14 +32,15 @@
       <section id="works-view" aria-label="作品列表">
         <div class="work-grid" id="work-grid"></div>
       </section>
-      <article id="project-view" hidden>
-        <header class="project-heading">
-          <h1 id="project-title"></h1>
-          <p class="muted" id="project-meta"></p>
-        </header>
+      <article id="project-view" aria-labelledby="project-title" hidden>
         <div class="video-frame">
           <div id="video-placeholder"><span>视频待添加</span></div>
-          <video id="player" controls playsinline preload="none" hidden></video>
+          <video id="player" controls playsinline preload="none" poster="images/video-poster.svg" hidden></video>
+          <button type="button" id="poster-play" class="poster-play" aria-label="播放视频" hidden>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
         </div>
         <p id="video-message" class="muted" role="status" hidden></p>
         <details id="local-tools" class="local-tools" hidden>
@@ -46,49 +48,58 @@
           <p class="muted">选择电脑里的文件，仅在本机预览。刷新页面后需重新选择。</p>
           <div class="file-inputs">
             <label>视频文件 <input id="local-video" type="file" accept="video/*"></label>
-            <label>封面图片 <input id="local-cover" type="file" accept="image/*"></label>
+            <label>首页封面 <input id="local-cover" type="file" accept="image/*"></label>
           </div>
           <p id="local-message" class="muted" role="status"></p>
         </details>
         <div class="project-copy">
-          <p id="project-description" class="preserve-lines"></p>
+          <div>
+            <h1 id="project-title">
+              <span id="project-title-zh"></span>
+              <span id="project-title-en" lang="en" hidden></span>
+            </h1>
+            <p class="muted" id="project-year"></p>
+            <p id="project-description" class="preserve-lines"></p>
+          </div>
           <dl class="project-facts">
             <div><dt>My role / 我的职责</dt><dd id="project-role"></dd></div>
             <div><dt>Medium / 作品类型</dt><dd id="project-medium"></dd></div>
           </dl>
         </div>
         <div id="project-gallery" class="project-gallery"></div>
-        <nav class="project-pagination" aria-label="切换作品">
-          <a id="previous-work"></a>
-          <a id="next-work"></a>
-        </nav>
       </article>
-      <section id="about-view" class="text-page" hidden>
-        <h1>About</h1>
-        <p id="about-copy" class="preserve-lines"></p>
+      <section id="about-view" class="text-page" aria-label="关于 About" hidden>
+        <div class="about-intro">
+          <h1 id="about-name"></h1>
+          <p id="about-copy" class="preserve-lines"></p>
+        </div>
+        <p id="about-pdf" class="muted">作品集 PDF（待上传）</p>
       </section>
-      <section id="cv-view" class="text-page" hidden>
-        <h1>CV</h1>
-        <a id="cv-download" class="text-link" download hidden>下载简历 PDF ↗</a>
-        <div id="cv-sections"></div>
-      </section>
-      <section id="contact-view" class="text-page" hidden>
-        <h1>Contact</h1>
-        <p id="contact-intro"></p>
-        <dl id="contact-list" class="contact-list"></dl>
+      <section id="contact-view" class="text-page" aria-label="联系 Contact" hidden>
+        <div class="contact-note">
+          <img src="images/contact-paper.webp?v=8eaa3f7e58" alt="" width="943" height="943" loading="lazy" decoding="async" draggable="false">
+          <p id="contact-email" class="contact-note-email" hidden></p>
+          <p id="contact-phone" class="contact-note-phone" hidden></p>
+        </div>
+        <dl id="contact-list" class="contact-list" hidden></dl>
       </section>
     </main>
   </div>
   <template id="card-template">
     <article class="work-card">
-      <a class="card-link">
+      <a class="card-link" draggable="false">
         <div class="cover">
           <span class="cover-empty">封面待添加</span>
           <span class="cover-number" aria-hidden="true"></span>
-          <img alt="" loading="lazy" decoding="async" hidden>
+          <img alt="" loading="lazy" decoding="async" draggable="false" hidden>
         </div>
-        <h2></h2>
-        <p class="card-year"></p>
+        <div class="card-caption">
+          <h2>
+            <span class="card-title-zh"></span>
+            <span class="card-title-en" lang="en" hidden></span>
+          </h2>
+          <p class="card-year"></p>
+        </div>
       </a>
     </article>
   </template>
