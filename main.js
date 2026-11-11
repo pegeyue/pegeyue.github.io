@@ -13,10 +13,11 @@ const workGrid = $("#work-grid");
 const sidebar = $(".sidebar");
 const menuToggle = $("#menu-toggle");
 const previews = new Map();
-const desktopCoverDrag = window.matchMedia("(min-width: 701px) and (hover: hover) and (pointer: fine)");
+const desktopCoverDrag = window.matchMedia("(width > 700px) and (hover: hover) and (pointer: fine)");
 const coverPositions = new Map();
 let activeCoverDrag = null;
 let blockedCoverClick = null;
+let pendingCoverTap = null;
 let coverLayer = 0;
 let currentWork = null;
 let renderedHash;
@@ -38,6 +39,7 @@ function workName(work) {
 function renderIndex() {
   const links = $("#work-links");
   resetCoverPositions();
+  clearCoverTap();
   workGrid.replaceChildren();
   links.replaceChildren();
   works.forEach((work, index) => {
@@ -172,6 +174,7 @@ function renderRoute(focusContent = false) {
   const hash = location.hash;
   if (hash === renderedHash) return;
   renderedHash = hash;
+  clearCoverTap();
 
   // 切换页面时停止播放，并释放上一个视频的请求。
   player.pause();
@@ -315,11 +318,39 @@ for (const type of ["pointerup", "pointercancel", "lostpointercapture"]) {
   });
 }
 
+function clearCoverTap() {
+  if (!pendingCoverTap) return;
+  window.clearTimeout(pendingCoverTap.timer);
+  pendingCoverTap.card.classList.remove("tap-preview");
+  pendingCoverTap = null;
+}
+
 workGrid.addEventListener("click", (event) => {
-  if (blockedCoverClick && event.detail > 0 && event.target.closest(".work-card") === blockedCoverClick) {
+  const link = event.target.closest(".card-link");
+  if (!link) return;
+  const card = link.closest(".work-card");
+  if (event.detail > 0 && card === blockedCoverClick) {
     event.preventDefault();
     blockedCoverClick = null;
+    return;
   }
+  const clickedCover = event.target.closest(".cover");
+  if (desktopCoverDrag.matches && event.pointerType !== "touch" && !clickedCover) return;
+  if (event.defaultPrevented || event.detail === 0 || event.button !== 0 ||
+      event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+  event.preventDefault();
+  clearCoverTap();
+  card.classList.add("tap-preview");
+  const previousHash = location.hash;
+  const timer = window.setTimeout(() => {
+    if (location.hash === previousHash && link.hash !== previousHash) {
+      location.hash = link.hash;
+    } else {
+      clearCoverTap();
+    }
+  }, 200);
+  pendingCoverTap = { card, timer };
 }, true);
 
 menuToggle.addEventListener("click", () => {
