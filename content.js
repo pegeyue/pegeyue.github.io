@@ -2,10 +2,10 @@
 // 多段文字可以用 \n 换行。路径也使用 /，例如 media/film-01.mp4。
 window.portfolio = {
   name: "余珮格 Peige Yu",
-  about: "余珮格是一位专注于互动叙事与视觉的设计师，擅长构思有活力的叙事，突出其中的乐趣，并将其转化为具体的画面和互动体验。她的主要项目涵盖叙事游戏、影像、互动装置等。具备故事脚本、美术设计、动画制作与交互原型搭建的经验。\n\n在技术工具上，她通常使用Unity、Unreal Engine、Godot及TouchDesigner等交互引擎，并能将Codex、Claude、Midjourney等AI工具融入工作流，辅助代码编写与美术资产生成。有较强的英语能力可适应国际化团队沟通。\n\n她本科毕业于中央美术学院艺术与科技专业（获优秀毕业生、保送研究生资格），目前正在伦敦大学学院（UCL）攻读数字媒体制作硕士。",
+  about: "我专注于互动叙事与视觉，擅长构思有活力的叙事，突出其中的乐趣，并将其转化为具体的画面和互动体验。我的主要项目涵盖叙事游戏、影像、互动装置等。具备故事脚本、美术设计、动画制作与交互原型搭建的经验。\n\n在技术工具上，我通常使用Unity、Godot等交互引擎，并能将Codex、Claude、Midjourney等AI工具融入工作流，辅助代码编写与美术资产生成。有较强的英语能力可适应国际化团队沟通。\n\n本科毕业于中央美术学院艺术与科技专业（获优秀毕业生、保送研究生资格），目前正在伦敦大学学院（UCL）攻读数字媒体制作硕士。",
   email: "pegeyue@gmail.com",
   phone: "+86 15880217933",
-  portfolioPdf: "files/portfolio.pdf?v=142a1d0918",
+  portfolioPdf: "files/portfolio.pdf?v=56decd0523",
   wechat: "",
   works: [
     {
