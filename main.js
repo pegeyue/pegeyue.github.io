@@ -157,6 +157,11 @@ function renderProject(work) {
     img.src = item.src;
     img.alt = item.caption || workName(work);
     img.loading = "lazy";
+    img.decoding = "async";
+    if (item.width && item.height) {
+      img.width = item.width;
+      img.height = item.height;
+    }
     figure.append(img);
     if (item.caption) figure.append(element("figcaption", item.caption));
     gallery.append(figure);

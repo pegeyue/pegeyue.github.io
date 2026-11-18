@@ -211,8 +211,14 @@ p { margin: 0 0 22px; }
 .project-facts div { margin-bottom: 20px; }
 dt { color: var(--muted); }
 dd { margin: 3px 0 0; }
-.project-gallery { display: grid; gap: 30px; margin-top: 28px; }
-.project-gallery figure { margin: 0; }
+.project-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: end;
+  gap: clamp(84px, 15vw, 192px);
+  margin-top: clamp(40px, 6vw, 80px);
+}
+.project-gallery figure { margin: 0; min-width: 0; width: 50%; }
 .project-gallery img { display: block; width: 100%; height: auto; }
 .project-gallery figcaption { color: var(--muted); font-size: 12px; margin-top: 8px; }
 .text-page { max-width: 700px; padding-block-start: var(--back-link-height); }

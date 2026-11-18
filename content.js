@@ -35,7 +35,13 @@ window.portfolio = {
       role: "动画3D美术设计、脚本设计、AI辅助脚本制作、渲染、沟通交付", // 例如 导演、摄影、剪辑
       medium: "装置影像设计", // 例如 短片、三维动画
       description: "Skyframe Awards 2026 是由 The Story Engineers 主办，面向数字艺术家的创作活动，以“Depth and Light”为主题，为180平方米的悬吊式 LED 天顶屏幕制作原创数字影像。五位创作者入选，作品展出于伦敦金融城 Fen Court 的 Hogarth Court。",
-      images: [] // 详情图：[{ src: "images/detail-01.jpg", caption: "图片说明" }]
+      images: [
+        { src: "images/travel-stories/detail-01.jpg", width: 1440, height: 810 },
+        { src: "images/travel-stories/detail-02.jpg", width: 1279, height: 1836 },
+        { src: "images/travel-stories/detail-03.jpg", width: 1279, height: 1815 },
+        { src: "images/travel-stories/detail-04.webp", width: 1484, height: 2627 },
+        { src: "images/travel-stories/detail-05.webp", width: 2400, height: 4268 }
+      ]
     },
     {
       id: "work-03",
